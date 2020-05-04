@@ -10,7 +10,6 @@ import com.apiit.onceuponabook.models.User;
 import com.apiit.onceuponabook.repositories.LoginRepository;
 import com.apiit.onceuponabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
