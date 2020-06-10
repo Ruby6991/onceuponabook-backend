@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Year;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -29,7 +30,10 @@ public class Book implements Serializable {
     private long isbn;
 
     private String publisher;
-    private Year publicationYear;
+    private Date publicationYear;
+
+    @Column(nullable = false)
+    private String category;
 
     @Column(nullable = false)
     private String author;
@@ -48,13 +52,6 @@ public class Book implements Serializable {
 
     @Column(nullable = false)
     private int qtyInStock;
-
-    @ManyToMany
-    @JoinTable(
-            name = "book_category",
-            joinColumns = {@JoinColumn(name = "BOOK_ID",referencedColumnName = "ID")},
-            inverseJoinColumns = {@JoinColumn(name = "CATEGORY_ID",referencedColumnName = "ID")})
-    private List<Category> categories;
 
     @ManyToMany(mappedBy = "books")
     private List<User> users;

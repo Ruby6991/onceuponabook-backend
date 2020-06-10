@@ -24,7 +24,6 @@ public class UserDTO {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private LoginDTO login;
     private List<AddressDTO> addresses;
     private List<OrderDTO> orders;
     private List<BookDTO> books;

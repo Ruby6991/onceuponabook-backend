@@ -1,10 +1,6 @@
 package com.apiit.onceuponabook.dtos;
 
 import com.apiit.onceuponabook.enums.BookFormat;
-import com.apiit.onceuponabook.models.Category;
-import com.apiit.onceuponabook.models.OrderBook;
-import com.apiit.onceuponabook.models.Rating;
-import com.apiit.onceuponabook.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +29,7 @@ public class BookDTO {
     private String description;
     private String imagePath;
     private int qtyInStock;
-    private List<CategoryDTO> categories;
+
     private List<UserDTO> users;
     private List<OrderBookDTO> orderedBooks;
     private List<RatingDTO> ratings;

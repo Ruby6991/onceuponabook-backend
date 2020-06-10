@@ -24,7 +24,10 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String fullName;
+    private String firstName;
+
+    @Column(nullable = false)
+    private String lastName;
 
     @Column(nullable = false,unique = true)
     private int phoneNo;
@@ -40,9 +43,6 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    @OneToOne(mappedBy = "user")
-    private Login login;
 
     @OneToMany(mappedBy = "user")
     private List<Address> addresses;
@@ -60,10 +60,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Rating> ratings;
 
-    public User(String email, String fullName, int phoneNo, String password) {
+    public User(String email, String firstName, int phoneNo, String password) {
         super();
         this.email = email;
-        this.fullName=fullName;
+        this.firstName=firstName;
         this.phoneNo=phoneNo;
         this.password=password;
     }
