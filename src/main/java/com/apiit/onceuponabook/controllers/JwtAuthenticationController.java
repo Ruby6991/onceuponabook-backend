@@ -17,7 +17,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.Optional;
 
 @RestController
@@ -39,42 +38,22 @@ public class JwtAuthenticationController {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
-//    @PostMapping(value = "/authenticate")
-//    public ResponseEntity<LoginDTO> createAuthenticationToken(@RequestBody UserDTO authenticationRequest) throws Exception {
-//        authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
-//        final UserDetails userDetails = userDetailsService
-//                .loadUserByUsername(authenticationRequest.getEmail());
-//        final String token = jwtTokenUtil.generateToken(userDetails);
-//
-//        Optional<User> userOptional = userRepo.findById(authenticationRequest.getEmail());
-//        if(userOptional.isPresent()){
-//            User user = userOptional.get();
-//            Login login;
-//
-//            if(user.getLogin()!=null){
-//                login=user.getLogin();
-//                login.setLastLogin(new Date());
-//                login.setPassword(bcryptEncoder.encode(user.getPassword()));
-//                loginRepo.save(login);
-//            }else{
-//                login=new Login();
-//                login.setPassword(bcryptEncoder.encode(user.getPassword()));
-//                login.setLastLogin(new Date());
-//                login.setRole(user.getRole());
-//                login.setUser(user);
-//                loginRepo.save(login);
-//            }
-//
-//            user.setLogin(login);
-//
-//            UserDTO userDTO=new UserDTO (user.getEmail(),user.getFullName(),user.getPhoneNo());
-//            LoginDTO loginDTO = new LoginDTO( token,user.getRole(),userDTO);
-//
-//            return ResponseEntity.ok(loginDTO);
-//        }else{
-//            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-//        }
-//    }
+    @PostMapping(value = "/authenticate")
+    public ResponseEntity<UserDTO> createAuthenticationToken(@RequestBody UserDTO authenticationRequest) throws Exception {
+        authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(authenticationRequest.getEmail());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        Optional<User> userOptional = userRepo.findById(authenticationRequest.getEmail());
+        if(userOptional.isPresent()){
+            User user = userOptional.get();
+            UserDTO userDTO=new UserDTO(token,user.getFirstName(),user.getLastName());
+            return ResponseEntity.ok(userDTO);
+        }else{
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
 
     private void authenticate(String username, String password) throws Exception {
         try {

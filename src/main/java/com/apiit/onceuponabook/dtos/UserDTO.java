@@ -16,7 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 public class UserDTO {
     private String email;
-    private String fullName;
+    private String firstName;
+    private String lastName;
     private int phoneNo;
     private String password;
     private Date dateOfBirth;
@@ -29,9 +30,9 @@ public class UserDTO {
     private List<BookDTO> books;
     private List<RatingDTO> ratings;
 
-    public UserDTO(String email, String fullName, int phoneNo) {
+    public UserDTO(String email, String firstName, String lastName) {
         this.email=email;
-        this.fullName=fullName;
-        this.phoneNo=phoneNo;
+        this.firstName=firstName;
+        this.lastName=lastName;
     }
 }

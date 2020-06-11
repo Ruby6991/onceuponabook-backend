@@ -5,12 +5,13 @@ import com.apiit.onceuponabook.models.Order;
 import com.apiit.onceuponabook.models.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OrderRepository extends JpaRepository<Order,Integer> {
+public interface OrderRepository extends CrudRepository<Order,Integer> {
     //Get all orders made by a specific user by its status
     List<Order> findByUserAndStatus(User user, OrderStatus orderStatus);
 

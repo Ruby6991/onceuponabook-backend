@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Year;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ public class BookDTO {
     private int id;
     private long isbn;
     private String publisher;
-    private Year publicationYear;
+    private Date publicationYear;
     private String author;
     private String title;
     private double price;
