@@ -68,8 +68,8 @@ public class OrderService {
             order.setAddress(newOrder.getAddress());
             order.setOrderedBooks(newOrder.getOrderedBooks());
             order.setPaymentMethod(newOrder.getPaymentMethod());
-            newOrder = orderRepo.save(newOrder);
-            return new ResponseEntity<>(modelToDTO.orderToDTO(newOrder), HttpStatus.OK);
+            orderRepo.save(order);
+            return new ResponseEntity<>(modelToDTO.orderToDTO(order), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
@@ -87,18 +87,18 @@ public class OrderService {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<List<OrderBookDTO>> getOrderBookByUser(String id){
-        Optional<User> userOptional = userRepo.findById(id);
-        if(userOptional.isPresent()){
-            List<OrderBookDTO> orderBookDTOList = new ArrayList<>();
-            List<OrderBook> orderBooks = orderBookRepo.findByUser(userOptional.get());
-            for(OrderBook orderBook: orderBooks){
-                orderBookDTOList.add(modelToDTO.orderBookToDTO(orderBook));
-            }
-            return new ResponseEntity<>(orderBookDTOList, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
+//    public ResponseEntity<List<OrderBookDTO>> getOrderBookByUser(String id){
+//        Optional<User> userOptional = userRepo.findById(id);
+//        if(userOptional.isPresent()){
+//            List<OrderBookDTO> orderBookDTOList = new ArrayList<>();
+//            List<OrderBook> orderBooks = orderBookRepo.findByUser(userOptional.get());
+//            for(OrderBook orderBook: orderBooks){
+//                orderBookDTOList.add(modelToDTO.orderBookToDTO(orderBook));
+//            }
+//            return new ResponseEntity<>(orderBookDTOList, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//    }
 
     public ResponseEntity<OrderBookDTO> addOrderBook(OrderBook newOrderBook){
         Optional<OrderBook> orderBookOptional = orderBookRepo.findById(newOrderBook.getOrderBookID());

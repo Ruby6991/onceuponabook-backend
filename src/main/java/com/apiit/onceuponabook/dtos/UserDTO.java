@@ -29,10 +29,11 @@ public class UserDTO {
     private List<OrderDTO> orders;
     private List<BookDTO> books;
     private List<RatingDTO> ratings;
+    private String jwtToken;
 
-    public UserDTO(String email, String firstName, String lastName) {
-        this.email=email;
+    public UserDTO(String jwtToken, String firstName, UserRole role) {
+        this.jwtToken=jwtToken;
         this.firstName=firstName;
-        this.lastName=lastName;
+        this.role=role;
     }
 }

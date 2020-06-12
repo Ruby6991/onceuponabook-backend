@@ -30,7 +30,7 @@ public class Book implements Serializable {
     private long isbn;
 
     private String publisher;
-    private Date publicationYear;
+    private Date publicationDate;
 
     @Column(nullable = false)
     private String category;

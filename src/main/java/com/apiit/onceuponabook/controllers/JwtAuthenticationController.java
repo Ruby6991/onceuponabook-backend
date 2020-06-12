@@ -48,7 +48,7 @@ public class JwtAuthenticationController {
         Optional<User> userOptional = userRepo.findById(authenticationRequest.getEmail());
         if(userOptional.isPresent()){
             User user = userOptional.get();
-            UserDTO userDTO=new UserDTO(token,user.getFirstName(),user.getLastName());
+            UserDTO userDTO=new UserDTO(token,user.getFirstName(),user.getRole());
             return ResponseEntity.ok(userDTO);
         }else{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);

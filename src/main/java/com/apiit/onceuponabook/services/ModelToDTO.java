@@ -35,6 +35,7 @@ public class ModelToDTO {
         bookDTO.setId(book.getId());
         bookDTO.setPublisher(book.getPublisher());
         bookDTO.setTitle(book.getTitle());
+        bookDTO.setCategory(book.getCategory());
 
 //        List<User> users = book.getUsers();
 //        List<UserDTO> userDTOS = new ArrayList<>();
@@ -60,13 +61,12 @@ public class ModelToDTO {
 //        }
 //        bookDTO.setOrderedBooks(orderBookDTOS);
 
-        bookDTO.setPublicationYear(book.getPublicationYear());
+        bookDTO.setPublicationDate(book.getPublicationDate());
         bookDTO.setPrice(book.getPrice());
         bookDTO.setIsbn(book.getIsbn());
         bookDTO.setFormat(book.getFormat());
         bookDTO.setDescription(book.getDescription());
         bookDTO.setAuthor(book.getAuthor());
-        bookDTO.setPublicationYear(book.getPublicationYear());
 
         return bookDTO;
     }

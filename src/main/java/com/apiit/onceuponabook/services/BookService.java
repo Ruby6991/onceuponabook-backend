@@ -61,7 +61,7 @@ public class BookService {
         return new ResponseEntity<>(bookDTOList, HttpStatus.OK);
     }
 
-    public ResponseEntity<Boolean> deleteUser(int id){
+    public ResponseEntity<Boolean> deleteBook(int id){
         try{
             bookRepo.deleteById(id);
             return new ResponseEntity<>(true, HttpStatus.OK);
@@ -78,8 +78,9 @@ public class BookService {
             book.setImagePath(newBook.getImagePath());
             book.setPrice(newBook.getPrice());
             book.setQtyInStock(newBook.getQtyInStock());
-            newBook = bookRepo.save(newBook);
-            return new ResponseEntity<>(modelToDTO.bookToDTO(newBook), HttpStatus.OK);
+            book.setPublicationDate(newBook.getPublicationDate());
+            bookRepo.save(book);
+            return new ResponseEntity<>(modelToDTO.bookToDTO(book), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }

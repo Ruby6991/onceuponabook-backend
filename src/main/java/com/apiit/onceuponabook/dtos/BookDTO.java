@@ -19,10 +19,11 @@ public class BookDTO {
     private int id;
     private long isbn;
     private String publisher;
-    private Date publicationYear;
+    private Date publicationDate;
     private String author;
     private String title;
     private double price;
+    private String category;
 
     @Enumerated(EnumType.STRING)
     private BookFormat format;

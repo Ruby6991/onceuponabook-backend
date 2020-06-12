@@ -82,8 +82,8 @@ public class UserService {
             user.setEmail(newUser.getEmail());
             user.setFirstName(newUser.getFirstName());
             user.setLastName(newUser.getLastName());
-            newUser = userRepo.save(newUser);
-            return new ResponseEntity<>(modelToDTO.userToDTO(newUser), HttpStatus.OK);
+            userRepo.save(user);
+            return new ResponseEntity<>(modelToDTO.userToDTO(user), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
