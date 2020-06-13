@@ -56,7 +56,7 @@ public class Book implements Serializable {
     @ManyToMany(mappedBy = "books")
     private List<User> users;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private List<OrderBook> orderedBooks;
 
     @OneToMany(mappedBy = "book")

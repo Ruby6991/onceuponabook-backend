@@ -44,11 +44,7 @@ public class Order implements Serializable {
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "address_id",referencedColumnName = "id")
-    private Address address;
-
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderBook> orderedBooks;
 
 

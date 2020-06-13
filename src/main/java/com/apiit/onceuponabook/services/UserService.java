@@ -1,11 +1,8 @@
 package com.apiit.onceuponabook.services;
 
-import com.apiit.onceuponabook.dtos.AddressDTO;
 import com.apiit.onceuponabook.dtos.UserDTO;
 import com.apiit.onceuponabook.enums.UserRole;
-import com.apiit.onceuponabook.models.Address;
 import com.apiit.onceuponabook.models.User;
-import com.apiit.onceuponabook.repositories.AddressRepository;
 import com.apiit.onceuponabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -23,9 +20,6 @@ public class UserService {
 
     @Autowired
     UserRepository userRepo;
-
-    @Autowired
-    AddressRepository addressRepo;
 
     @Autowired
     private PasswordEncoder bcryptEncoder;
@@ -78,62 +72,13 @@ public class UserService {
             User user = userOptional.get();
             user.setPhoneNo(newUser.getPhoneNo());
             user.setDateOfBirth(newUser.getDateOfBirth());
-            user.setAddresses(newUser.getAddresses());
-            user.setEmail(newUser.getEmail());
+            user.setAddress(newUser.getAddress());
             user.setFirstName(newUser.getFirstName());
             user.setLastName(newUser.getLastName());
             userRepo.save(user);
             return new ResponseEntity<>(modelToDTO.userToDTO(user), HttpStatus.OK);
         }
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
-
-    public ResponseEntity<List<AddressDTO>> getAddressList(String id){
-        Optional<User> userOptional = userRepo.findById(id);
-        if(userOptional.isPresent()){
-            List<AddressDTO> addressDTOList = new ArrayList<>();
-            List<Address> addressList = addressRepo.findByUser(userOptional.get());
-            for(Address add: addressList){
-                addressDTOList.add(modelToDTO.addressToDTO(add));
-            }
-            return new ResponseEntity<>(addressDTOList, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
-
-    public ResponseEntity<AddressDTO> addNewAddress(Address newAddress){
-        Optional<User> userOptional = userRepo.findById(newAddress.getUser().getEmail());
-        if(userOptional.isPresent()){
-            newAddress.setUser(userOptional.get());
-            newAddress = addressRepo.save(newAddress);
-            return new ResponseEntity<>(modelToDTO.addressToDTO(newAddress), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
-
-    public ResponseEntity<AddressDTO> updateAddress(Address updateAddress){
-        Optional<Address> addressOptional = addressRepo.findById(updateAddress.getId());
-        if(addressOptional.isPresent()){
-            Address address = addressOptional.get();
-
-            address.setAddress(updateAddress.getAddress());
-            address.setCity(updateAddress.getCity());
-            address.setCountry(updateAddress.getCountry());
-            address.setPostalCode(updateAddress.getPostalCode());
-            addressRepo.save(address);
-            return new ResponseEntity<>(modelToDTO.addressToDTO(address),HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
-
-    public ResponseEntity<Boolean> deleteAddress(int id){
-        try{
-            addressRepo.deleteById(id);
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        } catch (EmptyResultDataAccessException erda_ex){
-
-        }
-        return new ResponseEntity<>(false, HttpStatus.OK);
     }
 
     public ResponseEntity<UserDTO> updatePassword(String id, String currentPsw, String newPsw){

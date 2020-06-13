@@ -33,6 +33,9 @@ public class User {
     private int phoneNo;
 
     @Column(nullable = false)
+    private String address;
+
+    @Column(nullable = false)
     @Size(min=6)
     private String password;
 
@@ -43,9 +46,6 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
-
-    @OneToMany(mappedBy = "user")
-    private List<Address> addresses;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;

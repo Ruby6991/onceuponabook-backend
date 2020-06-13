@@ -19,13 +19,13 @@ public class UserDTO {
     private String firstName;
     private String lastName;
     private int phoneNo;
+    private String address;
     private String password;
     private Date dateOfBirth;
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    private List<AddressDTO> addresses;
     private List<OrderDTO> orders;
     private List<BookDTO> books;
     private List<RatingDTO> ratings;

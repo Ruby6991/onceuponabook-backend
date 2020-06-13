@@ -10,26 +10,6 @@ import java.util.List;
 @Service
 public class ModelToDTO {
 
-    public AddressDTO addressToDTO(Address address){
-        AddressDTO addressDTO = new AddressDTO();
-
-//        List<Order> orders = address.getOrders();
-//        List<OrderDTO> orderDTOS = new ArrayList<>();
-//        for(Order order: orders){
-//            orderDTOS.add(orderToDTO(order));
-//        }
-//        addressDTO.setOrders(orderDTOS);
-
-        addressDTO.setUser(userToDTO(address.getUser()));
-        addressDTO.setPostalCode(address.getPostalCode());
-        addressDTO.setId(address.getId());
-        addressDTO.setCountry(address.getCountry());
-        addressDTO.setCity(address.getCity());
-        addressDTO.setAddress(address.getAddress());
-
-        return addressDTO;
-    }
-
     public BookDTO bookToDTO(Book book){
         BookDTO bookDTO = new BookDTO();
         bookDTO.setId(book.getId());
@@ -74,7 +54,7 @@ public class ModelToDTO {
     public OrderBookDTO orderBookToDTO(OrderBook orderBook){
         OrderBookDTO orderBookDTO = new OrderBookDTO();
         orderBookDTO.setQuantity(orderBook.getQuantity());
-        orderBookDTO.setOrder(orderToDTO(orderBook.getOrder()));
+//        orderBookDTO.setOrder(orderToDTO(orderBook.getOrder()));
         orderBookDTO.setBook(bookToDTO(orderBook.getBook()));
         return orderBookDTO;
     }
@@ -88,15 +68,14 @@ public class ModelToDTO {
         orderDTO.setPurchasedDate(order.getPurchasedDate());
         orderDTO.setPaymentMethod(order.getPaymentMethod());
 
-//        List<OrderBook> books = order.getOrderedBooks();
-//        List<OrderBookDTO> orderBookDTOS = new ArrayList<>();
-//        for(OrderBook orderBook: books){
-//            orderBookDTOS.add(orderBookToDTO(orderBook));
-//        }
-//        orderDTO.setOrderedBooks(orderBookDTOS);
+        List<OrderBook> books = order.getOrderedBooks();
+        List<OrderBookDTO> orderBookDTOS = new ArrayList<>();
+        for(OrderBook orderBook: books){
+            orderBookDTOS.add(orderBookToDTO(orderBook));
+        }
+        orderDTO.setOrderedBooks(orderBookDTOS);
 
         orderDTO.setDeliveryDate(order.getDeliveryDate());
-        orderDTO.setAddress(addressToDTO(order.getAddress()));
 
         return orderDTO;
     }
@@ -118,6 +97,7 @@ public class ModelToDTO {
         userDTO.setEmail(user.getEmail());
         userDTO.setFirstName(user.getFirstName());
         userDTO.setLastName(user.getLastName());
+        userDTO.setAddress(user.getAddress());
         userDTO.setRole(user.getRole());
         userDTO.setPassword(user.getPassword());
 
@@ -134,13 +114,6 @@ public class ModelToDTO {
 //            orderDTOS.add(orderToDTO(order));
 //        }
 //        userDTO.setOrders(orderDTOS);
-
-//        List<Address> addresses = user.getAddresses();
-//        List<AddressDTO> addressDTOS = new ArrayList<>();
-//        for(Address address: addresses){
-//            addressDTOS.add(addressToDTO(address));
-//        }
-//        userDTO.setAddresses(addressDTOS);
 
         List<Book> books = user.getBooks();
         List<BookDTO> bookDTOS = new ArrayList<>();

@@ -2,9 +2,6 @@ package com.apiit.onceuponabook.dtos;
 
 import com.apiit.onceuponabook.enums.OrderStatus;
 import com.apiit.onceuponabook.enums.PaymentMethod;
-import com.apiit.onceuponabook.models.Address;
-import com.apiit.onceuponabook.models.OrderBook;
-import com.apiit.onceuponabook.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +32,6 @@ public class OrderDTO {
     private PaymentMethod paymentMethod;
 
     private UserDTO user;
-    private AddressDTO address;
     private List<OrderBookDTO> orderedBooks;
 
 }
