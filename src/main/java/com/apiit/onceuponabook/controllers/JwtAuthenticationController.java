@@ -64,4 +64,12 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
+
+    @PostMapping("/validateToken")
+    public ResponseEntity<Boolean> getTokenExpirationDate(@RequestBody UserDTO userDTO){
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(userDTO.getEmail());
+        boolean status = jwtTokenUtil.validateToken(userDTO.getJwtToken(), userDetails);
+        return new ResponseEntity<>(status,HttpStatus.OK);
+    }
 }
