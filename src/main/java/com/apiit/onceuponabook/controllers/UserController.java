@@ -1,6 +1,8 @@
 package com.apiit.onceuponabook.controllers;
 
+import com.apiit.onceuponabook.dtos.BookDTO;
 import com.apiit.onceuponabook.dtos.UserDTO;
+import com.apiit.onceuponabook.models.Book;
 import com.apiit.onceuponabook.models.User;
 import com.apiit.onceuponabook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +46,15 @@ public class UserController {
     @PutMapping("/UpdatePassword/{id}")
     public ResponseEntity<UserDTO> UpdatePassword(@PathVariable String id, @RequestParam(value="currentPsw") String currentPsw, @RequestParam(value="newPsw") String newPsw){
         return userService.updatePassword(id, currentPsw ,newPsw);
+    }
+
+    @PostMapping("/CreateWishlistItem/{id}")
+    public ResponseEntity<Boolean> CreateWishlistItem(@PathVariable String id, @RequestBody Book wishBook){
+        return userService.createWishlistItem(id,wishBook);
+    }
+
+    @PostMapping("/getWishList")
+    public ResponseEntity<List<BookDTO>> getWishList(@RequestBody User user){
+        return userService.getWishList(user);
     }
 }

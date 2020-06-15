@@ -1,8 +1,12 @@
 package com.apiit.onceuponabook.services;
 
+import com.apiit.onceuponabook.dtos.BookDTO;
 import com.apiit.onceuponabook.dtos.UserDTO;
 import com.apiit.onceuponabook.enums.UserRole;
+import com.apiit.onceuponabook.models.Book;
+import com.apiit.onceuponabook.models.OrderBook;
 import com.apiit.onceuponabook.models.User;
+import com.apiit.onceuponabook.repositories.BookRepository;
 import com.apiit.onceuponabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -20,6 +24,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepo;
+
+    @Autowired
+    BookRepository bookRepo;
 
     @Autowired
     private PasswordEncoder bcryptEncoder;
@@ -94,7 +101,49 @@ public class UserService {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    //WISHLIST
+    public ResponseEntity<Boolean> createWishlistItem(String id, Book wishBook) {
+        Optional<User> userOptional = userRepo.findById(id);
+        if (userOptional.isPresent()) {
+
+            Optional<Book> bookOptional = bookRepo.findById(wishBook.getId());
+            Book wishListBook = bookOptional.get();
+            List<Book> wishlist = userOptional.get().getBooks();
+            boolean isAddded=false;
+
+            if(wishlist.size()==0){
+                wishlist.add(wishListBook);
+            }else{
+                for(Book book: wishlist){
+                    if(book.getId()==wishBook.getId()){
+                        isAddded=true;
+                    }
+                }
+                if(!isAddded){
+                    wishlist.add(wishBook);
+                }
+            }
+
+            User updateUser =userOptional.get();
+            updateUser.setBooks(wishlist);
+            userRepo.save(updateUser);
+
+            return new ResponseEntity<>(true, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<List<BookDTO>> getWishList(User user) {
+        List<BookDTO> wishlistDTOs = new ArrayList<>();
+        Optional<User> userOptional = userRepo.findById(user.getEmail());
+        if(userOptional.isPresent()){
+            List<Book> wishlist = userOptional.get().getBooks();
+            for(Book book:wishlist){
+                wishlistDTOs.add(modelToDTO.bookToDTO(book));
+            }
+        }
+        return new ResponseEntity<>(wishlistDTOs, HttpStatus.OK);
+    }
+
 
 
 
