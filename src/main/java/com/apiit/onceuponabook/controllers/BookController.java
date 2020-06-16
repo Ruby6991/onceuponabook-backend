@@ -1,6 +1,7 @@
 package com.apiit.onceuponabook.controllers;
 
 import com.apiit.onceuponabook.dtos.BookDTO;
+import com.apiit.onceuponabook.dtos.RatingDTO;
 import com.apiit.onceuponabook.dtos.UserDTO;
 import com.apiit.onceuponabook.models.Book;
 import com.apiit.onceuponabook.models.User;
@@ -42,6 +43,11 @@ public class BookController {
     @PutMapping("/UpdateBook/{id}")
     public ResponseEntity<BookDTO> UpdateBook(@PathVariable int id, @RequestBody Book book){
         return bookService.updateBook(id,book);
+    }
+
+    @PostMapping("/GetBookRatingList")
+    public ResponseEntity<List<RatingDTO>> getBookRatingList(@RequestBody Book book){
+        return bookService.getBookRatingList(book.getId());
     }
 
 }

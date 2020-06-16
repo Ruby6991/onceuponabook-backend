@@ -1,12 +1,15 @@
 package com.apiit.onceuponabook.services;
 
 import com.apiit.onceuponabook.dtos.BookDTO;
+import com.apiit.onceuponabook.dtos.RatingDTO;
 import com.apiit.onceuponabook.dtos.UserDTO;
 import com.apiit.onceuponabook.enums.UserRole;
 import com.apiit.onceuponabook.models.Book;
 import com.apiit.onceuponabook.models.OrderBook;
+import com.apiit.onceuponabook.models.Rating;
 import com.apiit.onceuponabook.models.User;
 import com.apiit.onceuponabook.repositories.BookRepository;
+import com.apiit.onceuponabook.repositories.RatingRepository;
 import com.apiit.onceuponabook.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -27,6 +30,9 @@ public class UserService {
 
     @Autowired
     BookRepository bookRepo;
+
+    @Autowired
+    RatingRepository ratingRepo;
 
     @Autowired
     private PasswordEncoder bcryptEncoder;
@@ -142,6 +148,27 @@ public class UserService {
             }
         }
         return new ResponseEntity<>(wishlistDTOs, HttpStatus.OK);
+    }
+
+    public ResponseEntity<Boolean> createRatingItem(Rating rating) {
+        Optional<Rating> ratingOptional=ratingRepo.findById(rating.getId());
+        if(!ratingOptional.isPresent()){
+            ratingRepo.save(rating);
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(false,HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public ResponseEntity<List<RatingDTO>> getRatingList(User user) {
+        List<RatingDTO> ratinglistDTOs = new ArrayList<>();
+        Optional<User> userOptional = userRepo.findById(user.getEmail());
+        if(userOptional.isPresent()){
+            List<Rating> ratinglist = userOptional.get().getRatings();
+            for(Rating rating:ratinglist){
+                ratinglistDTOs.add(modelToDTO.ratingToDTO(rating));
+            }
+        }
+        return new ResponseEntity<>(ratinglistDTOs, HttpStatus.OK);
     }
 
 

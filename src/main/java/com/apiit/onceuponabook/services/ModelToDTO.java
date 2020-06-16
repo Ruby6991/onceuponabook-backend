@@ -84,6 +84,7 @@ public class ModelToDTO {
         RatingDTO ratingDTO = new RatingDTO();
         ratingDTO.setUser(userToDTO(rating.getUser()));
         ratingDTO.setRating(rating.getRating());
+        ratingDTO.setRatingDesc(rating.getRatingDesc());
         ratingDTO.setId(rating.getId());
         ratingDTO.setBook(bookToDTO(rating.getBook()));
 

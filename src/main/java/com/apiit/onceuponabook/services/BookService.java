@@ -85,18 +85,18 @@ public class BookService {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<List<RatingDTO>> getUserRatingList(String id){
-        Optional<User> userOptional = userRepo.findById(id);
-        if(userOptional.isPresent()){
-            List<RatingDTO> ratingDTOList = new ArrayList<>();
-            List<Rating> ratingList = ratingRepo.findByUser(userOptional.get());
-            for(Rating rating: ratingList){
-                ratingDTOList.add(modelToDTO.ratingToDTO(rating));
-            }
-            return new ResponseEntity<>(ratingDTOList, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
+//    public ResponseEntity<List<RatingDTO>> getUserRatingList(String id){
+//        Optional<User> userOptional = userRepo.findById(id);
+//        if(userOptional.isPresent()){
+//            List<RatingDTO> ratingDTOList = new ArrayList<>();
+//            List<Rating> ratingList = ratingRepo.findByUser(userOptional.get());
+//            for(Rating rating: ratingList){
+//                ratingDTOList.add(modelToDTO.ratingToDTO(rating));
+//            }
+//            return new ResponseEntity<>(ratingDTOList, HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//    }
 
     public ResponseEntity<List<RatingDTO>> getBookRatingList(int id){
         Optional<Book> bookOptional = bookRepo.findById(id);
@@ -111,34 +111,34 @@ public class BookService {
         return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    public ResponseEntity<RatingDTO> addNewRating(Rating newRating){
-        Optional<Book> bookOptional = bookRepo.findById(newRating.getBook().getId());
-        if(bookOptional.isPresent()){
-            newRating.setBook(bookOptional.get());
-            newRating = ratingRepo.save(newRating);
-            return new ResponseEntity<>(modelToDTO.ratingToDTO(newRating), HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
+//    public ResponseEntity<RatingDTO> addNewRating(Rating newRating){
+//        Optional<Book> bookOptional = bookRepo.findById(newRating.getBook().getId());
+//        if(bookOptional.isPresent()){
+//            newRating.setBook(bookOptional.get());
+//            newRating = ratingRepo.save(newRating);
+//            return new ResponseEntity<>(modelToDTO.ratingToDTO(newRating), HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//    }
 
-    public ResponseEntity<RatingDTO> updateRating(Rating updateRating){
-        Optional<Rating> ratingOptional = ratingRepo.findById(updateRating.getId());
-        if(ratingOptional.isPresent()){
-            Rating rating = ratingOptional.get();
-            rating.setRating(updateRating.getRating());
-            ratingRepo.save(rating);
-            return new ResponseEntity<>(modelToDTO.ratingToDTO(rating),HttpStatus.OK);
-        }
-        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-    }
+//    public ResponseEntity<RatingDTO> updateRating(Rating updateRating){
+//        Optional<Rating> ratingOptional = ratingRepo.findById(updateRating.getId());
+//        if(ratingOptional.isPresent()){
+//            Rating rating = ratingOptional.get();
+//            rating.setRating(updateRating.getRating());
+//            ratingRepo.save(rating);
+//            return new ResponseEntity<>(modelToDTO.ratingToDTO(rating),HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+//    }
 
-    public ResponseEntity<Boolean> deleteRating(int id){
-        try{
-            ratingRepo.deleteById(id);
-            return new ResponseEntity<>(true, HttpStatus.OK);
-        } catch (EmptyResultDataAccessException erda_ex){
-
-        }
-        return new ResponseEntity<>(false, HttpStatus.OK);
-    }
+//    public ResponseEntity<Boolean> deleteRating(int id){
+//        try{
+//            ratingRepo.deleteById(id);
+//            return new ResponseEntity<>(true, HttpStatus.OK);
+//        } catch (EmptyResultDataAccessException erda_ex){
+//
+//        }
+//        return new ResponseEntity<>(false, HttpStatus.OK);
+//    }
 }

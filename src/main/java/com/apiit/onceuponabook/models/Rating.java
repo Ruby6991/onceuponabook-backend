@@ -21,6 +21,8 @@ public class Rating {
 
     private int rating;
 
+    private String ratingDesc;
+
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;

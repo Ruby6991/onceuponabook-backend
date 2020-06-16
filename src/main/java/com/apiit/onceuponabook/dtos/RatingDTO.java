@@ -12,6 +12,7 @@ import lombok.Setter;
 public class RatingDTO {
     private int id;
     private int rating;
+    private String ratingDesc;
     private UserDTO user;
     private BookDTO book;
 }

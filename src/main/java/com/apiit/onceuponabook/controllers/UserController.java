@@ -1,8 +1,10 @@
 package com.apiit.onceuponabook.controllers;
 
 import com.apiit.onceuponabook.dtos.BookDTO;
+import com.apiit.onceuponabook.dtos.RatingDTO;
 import com.apiit.onceuponabook.dtos.UserDTO;
 import com.apiit.onceuponabook.models.Book;
+import com.apiit.onceuponabook.models.Rating;
 import com.apiit.onceuponabook.models.User;
 import com.apiit.onceuponabook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +58,15 @@ public class UserController {
     @PostMapping("/getWishList")
     public ResponseEntity<List<BookDTO>> getWishList(@RequestBody User user){
         return userService.getWishList(user);
+    }
+
+    @PostMapping("/CreateRatingItem/{id}")
+    public ResponseEntity<Boolean> createRatingItem(@RequestBody Rating rating){
+        return userService.createRatingItem(rating);
+    }
+
+    @PostMapping("/getRatingList")
+    public ResponseEntity<List<RatingDTO>> getRatingList(@RequestBody User user){
+        return userService.getRatingList(user);
     }
 }
