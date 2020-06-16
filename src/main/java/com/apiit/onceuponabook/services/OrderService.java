@@ -1,5 +1,6 @@
 package com.apiit.onceuponabook.services;
 
+import com.apiit.onceuponabook.dtos.BookDTO;
 import com.apiit.onceuponabook.dtos.OrderBookDTO;
 import com.apiit.onceuponabook.dtos.OrderDTO;
 import com.apiit.onceuponabook.enums.OrderStatus;
@@ -41,10 +42,8 @@ public class OrderService {
         Optional<User> userOptional=userRepo.findById(newOrder.getUser().getEmail());
         Optional<Order> orderOptional=orderRepo.findById(newOrder.getId());
         if(!orderOptional.isPresent()){
-//            List<OrderBook> orderBooks=new ArrayList<>();
             newOrder.setUser(userOptional.get());
             newOrder.setStatus(OrderStatus.Pending);
-//            newOrder.setOrderedBooks(orderBooks);
             orderRepo.save(newOrder);
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
@@ -88,6 +87,18 @@ public class OrderService {
             }
         }
         return new ResponseEntity<>(orderDTOList, HttpStatus.OK);
+    }
+
+    public ResponseEntity<OrderDTO> updateOrder(int id, Order newOrder){
+        Optional<Order> orderOptional = orderRepo.findById(id);
+        if(orderOptional.isPresent()){
+            Order order = orderOptional.get();
+            order.setDeliveryDate(newOrder.getDeliveryDate());
+            order.setStatus(newOrder.getStatus());
+            orderRepo.save(order);
+            return new ResponseEntity<>(modelToDTO.orderToDTO(order), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
     public ResponseEntity<OrderDTO> updateOrderAddBook(int id, Order newOrder){
