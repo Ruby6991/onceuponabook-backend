@@ -2,11 +2,8 @@ package com.apiit.onceuponabook.controllers;
 
 import com.apiit.onceuponabook.dtos.BookDTO;
 import com.apiit.onceuponabook.dtos.RatingDTO;
-import com.apiit.onceuponabook.dtos.UserDTO;
 import com.apiit.onceuponabook.models.Book;
-import com.apiit.onceuponabook.models.User;
 import com.apiit.onceuponabook.services.BookService;
-import com.apiit.onceuponabook.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -110,12 +110,10 @@ public class UserService {
     public ResponseEntity<Boolean> createWishlistItem(String id, Book wishBook) {
         Optional<User> userOptional = userRepo.findById(id);
         if (userOptional.isPresent()) {
-
             Optional<Book> bookOptional = bookRepo.findById(wishBook.getId());
             Book wishListBook = bookOptional.get();
             List<Book> wishlist = userOptional.get().getBooks();
             boolean isAddded=false;
-
             if(wishlist.size()==0){
                 wishlist.add(wishListBook);
             }else{
@@ -128,11 +126,9 @@ public class UserService {
                     wishlist.add(wishBook);
                 }
             }
-
             User updateUser =userOptional.get();
             updateUser.setBooks(wishlist);
             userRepo.save(updateUser);
-
             return new ResponseEntity<>(true, HttpStatus.OK);
         }
         return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
